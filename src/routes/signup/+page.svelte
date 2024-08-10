@@ -1,5 +1,5 @@
-<script lang="ts">
-    import { page } from "$app/stores";
-    const firstName = $page.url.searchParams.get('firstName')
- </script>
-
+<form method="POST" action="/signup">
+    <input type="text" name="telegramId" />
+    <input type="password" name="password" />
+    <button type="submit">Login</button>
+  </form>

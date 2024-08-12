@@ -4,6 +4,7 @@ import { env } from "$env/dynamic/private";
 import { db } from "$lib";
 
 const public_paths = [
+    '/',
     '/signup',
     '/login'
 ];

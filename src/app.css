@@ -1,0 +1,12 @@
+label {
+    display: inline-block;
+}
+
+input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.red {
+    color: red;
+}

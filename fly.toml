@@ -6,6 +6,9 @@
 app = 'svelte-kit-telegram-webapp'
 primary_region = 'otp'
 
+[env]
+  DATABASE_URL = "file:///data/sqlite.db"
+  
 [build]
 
 [[mounts]]

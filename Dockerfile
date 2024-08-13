@@ -52,6 +52,9 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 
+# add shortcut for connecting to database CLI
+RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
+
 # Copy built application
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules

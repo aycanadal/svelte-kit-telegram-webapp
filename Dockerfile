@@ -27,8 +27,7 @@ RUN npm ci --include=dev
 # Generate Prisma Client
 COPY --link prisma .
 RUN npx prisma generate
-ENV DATABASE_URL="file:///data/sqlite.db"
-RUN npx prisma db push 
+
 
 # Copy application code
 COPY --link . .
@@ -52,6 +51,7 @@ RUN apt-get update -qq && \
 COPY --from=build /app/.svelte-kit /app/build
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app
+COPY --from=build /appdocker-entrypoint.js /app
 
 # Setup sqlite3 on a separate volume
 RUN mkdir -p /data
@@ -62,4 +62,5 @@ ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+ENV DATABASE_URL="file:///data/sqlite.db"
 CMD [ "node", "./build/output/server/index.js" ]

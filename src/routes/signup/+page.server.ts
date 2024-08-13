@@ -10,6 +10,8 @@ export const actions = {
         const formData = await event.request.formData()
         const dto = Object.fromEntries(formData);
         const body = JSON.stringify(dto)
+
+        console.log("DATABASE_URL: ", env.DATABASE_URL)
         
         const user = await db.user.findUnique({
             where: {

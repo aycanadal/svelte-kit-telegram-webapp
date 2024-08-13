@@ -12,7 +12,6 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -27,10 +26,6 @@ RUN npm ci --include=dev
 # Copy application code
 COPY --link . .
 
-# Setup sqlite3 on a separate volume
-RUN mkdir -p /data
-VOLUME /data
-
 # Generate Prisma Client
 COPY --link prisma .
 ENV DATABASE_URL="file:/data/sqlite.db"
@@ -44,8 +39,6 @@ RUN npm prune --omit=dev
 
 # Final stage for app image
 FROM base
-
-
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
@@ -66,6 +59,5 @@ RUN npx prisma db push
 #ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
-ENV DATABASE_URL="file:/data/sqlite.db"
 EXPOSE 3000
 CMD [ "node", "./build/index.js" ]

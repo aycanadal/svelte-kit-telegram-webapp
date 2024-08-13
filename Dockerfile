@@ -27,6 +27,13 @@ RUN npm ci --include=dev
 # Copy application code
 COPY --link . .
 
+# Build application
+RUN npm run build
+
+# Remove development dependencies
+RUN npm prune --omit=dev
+
+
 # Final stage for app image
 FROM base
 
@@ -43,21 +50,14 @@ VOLUME /data
 COPY --link prisma .
 ENV DATABASE_URL="file:///data/sqlite.db"
 RUN npx prisma generate
-
-# Build application
-RUN npm run build
-
-# Remove development dependencies
-RUN npm prune --omit=dev
+RUN npx prisma db push 
 
 # Copy built application
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app
 COPY --from=build /app/docker-entrypoint.js /app
-COPY --from=build /app/prisma /app/prisma
-
-RUN npx prisma db push
+COPY --from=build /app/prisma /myapp/prisma
 
 # Entrypoint prepares the database.
 #ENTRYPOINT [ "/app/docker-entrypoint.js" ]

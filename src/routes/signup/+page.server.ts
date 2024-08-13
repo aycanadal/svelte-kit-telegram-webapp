@@ -29,7 +29,7 @@ export const actions = {
                 telegramId: dto.telegramId               
             };
         
-            const token = jwt.sign(jwtUser, env.JWT_SECRET, {
+            const token = jwt.sign(jwtUser, "some super classified secret", {
                 expiresIn: '3s'
             });
 

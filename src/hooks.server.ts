@@ -32,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         const token = bearerAndToken.split(" ")[1];
 
         try {
-            const jwtUser = jwt.verify(token, env.JWT_SECRET);
+            const jwtUser = jwt.verify(token, "some super classified secret");
             if (typeof jwtUser === "string") {
                 throw new Error("Something went wrong");
             }

@@ -12,11 +12,8 @@ primary_region = 'otp'
   source = 'data'
   destination = '/data'
 
-[env]
-  PORT = "3000"
-
 [http_service]
-  internal_port = 3000
+  internal_port = 22
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true

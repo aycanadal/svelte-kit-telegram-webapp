@@ -10,7 +10,7 @@ LABEL fly_launch_runtime="SvelteKit/Prisma"
 WORKDIR /app
 
 # Set production environment
-ENV NODE_ENV="development"
+ENV NODE_ENV="production"
 
 
 # Throw-away build stage to reduce size of final image
@@ -61,6 +61,6 @@ VOLUME /data
 ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 22
+EXPOSE 3000
 ENV DATABASE_URL="file:///data/sqlite.db"
-CMD [ "node", "./build/output/server/index.js" ]
+CMD [ "node", "./build/index.js" ]

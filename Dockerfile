@@ -45,8 +45,7 @@ RUN npm prune --omit=dev
 # Final stage for app image
 FROM base
 
-ENV DATABASE_URL="file:/data/sqlite.db"
-RUN npx prisma db push 
+
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
@@ -59,6 +58,9 @@ COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app
 COPY --from=build /app/docker-entrypoint.js /app
 COPY --from=build /app/prisma /app/prisma
+
+ENV DATABASE_URL="file:/data/sqlite.db"
+RUN npx prisma db push 
 
 # Entrypoint prepares the database.
 #ENTRYPOINT [ "/app/docker-entrypoint.js" ]

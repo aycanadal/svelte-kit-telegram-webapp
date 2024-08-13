@@ -58,7 +58,7 @@ RUN mkdir -p /data
 VOLUME /data
 
 # Entrypoint prepares the database.
-ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+# ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

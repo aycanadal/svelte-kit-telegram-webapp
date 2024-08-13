@@ -58,6 +58,7 @@ COPY --from=build /app/package.json /app
 COPY --from=build /app/docker-entrypoint.js /app
 COPY --from=build /app/prisma /app/prisma
 
+ENV DATABASE_URL="file:///data/sqlite.db"
 RUN npx prisma db push 
 
 

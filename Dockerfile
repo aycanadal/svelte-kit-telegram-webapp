@@ -33,13 +33,12 @@ VOLUME /data
 
 # Generate Prisma Client
 COPY --link prisma .
-ENV DATABASE_URL="file:/data/sqlite.db"
+ENV DATABASE_URL="file:./sqlite4.db"
 #RUN npx prisma generate
 
 # Build application
 RUN npm run build
 RUN npx prisma db push 
-
 
 # Remove development dependencies
 RUN npm prune --omit=dev

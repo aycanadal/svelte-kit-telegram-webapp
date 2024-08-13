@@ -24,13 +24,6 @@ RUN apt-get update -qq && \
 COPY --link .npmrc package-lock.json package.json ./
 RUN npm ci --include=dev
 
-# Generate Prisma Client
-COPY --link prisma .
-ENV DATABASE_URL="file:/data/sqlite.db"
-RUN npx prisma generate
-RUN npx prisma db push 
-
-
 # Copy application code
 COPY --link . .
 
@@ -58,6 +51,12 @@ COPY --from=build /app/docker-entrypoint.js /app
 # Setup sqlite3 on a separate volume
 RUN mkdir -p /data
 VOLUME /data
+
+# Generate Prisma Client
+COPY --link prisma .
+ENV DATABASE_URL="file:/data/sqlite.db"
+RUN npx prisma generate
+RUN npx prisma db push 
 
 # Entrypoint prepares the database.
 # ENTRYPOINT [ "/app/docker-entrypoint.js" ]

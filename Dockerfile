@@ -42,12 +42,6 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y openssl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Copy built application
-COPY --from=build /app/build /app/build
-COPY --from=build /app/node_modules /app/node_modules
-COPY --from=build /app/package.json /app
-COPY --from=build /app/docker-entrypoint.js /app
-
 # Setup sqlite3 on a separate volume
 RUN mkdir -p /data
 VOLUME /data
@@ -58,8 +52,15 @@ ENV DATABASE_URL="file:///data/sqlite.db"
 RUN npx prisma generate
 RUN npx prisma db push 
 
+# Copy built application
+COPY --from=build /app/build /app/build
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package.json /app
+COPY --from=build /app/docker-entrypoint.js /app
+COPY --from=build /app/prisma /app/prisma
+
 # Entrypoint prepares the database.
-ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+#ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

@@ -51,6 +51,7 @@ COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app
 COPY --from=build /app/docker-entrypoint.js /app
 COPY --from=build /app/prisma /app/prisma
+COPY --from=build /app/start.sh /app/start.sh
 
 ENV DATABASE_URL="file:/data/sqlite.db"
 #RUN npx prisma db push 
@@ -60,5 +61,5 @@ ENV DATABASE_URL="file:/data/sqlite.db"
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "node", "./build/index.js" ]
+#CMD [ "node", "./build/index.js" ]
 CMD ["./start.sh"]

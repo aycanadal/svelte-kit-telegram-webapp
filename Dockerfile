@@ -38,13 +38,15 @@ ENV DATABASE_URL="file:/data/sqlite.db"
 
 # Build application
 RUN npm run build
-RUN npx prisma db push 
 
 # Remove development dependencies
 RUN npm prune --omit=dev
 
 # Final stage for app image
 FROM base
+
+ENV DATABASE_URL="file:/data/sqlite.db"
+RUN npx prisma db push 
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \

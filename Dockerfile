@@ -32,7 +32,7 @@ RUN npx prisma generate
 COPY --link . .
 
 # Build application
-RUN npm run build
+RUN --mount=type=secret,id=DATABASE_URL--mount=type=secret,id=JWT_SECRET DATABASE_URL="$(cat /run/secrets/DATABASE_URL)"     JWT_SECRET="$(cat /run/secrets/JWT_SECRET)" && npm run build
 
 # Remove development dependencies
 RUN npm prune --omit=dev

@@ -38,8 +38,6 @@ ENV DATABASE_URL="file:/data/sqlite.db"
 
 # Build application
 RUN npm run build
-# add shortcut for connecting to database CLI
-RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 RUN npx prisma db push 
 
 # Remove development dependencies
@@ -64,5 +62,6 @@ COPY --from=build /app/prisma /app/prisma
 #ENTRYPOINT [ "/app/docker-entrypoint.js" ]
 
 # Start the server by default, this can be overwritten at runtime
+ENV DATABASE_URL="file:/data/sqlite.db"
 EXPOSE 3000
 CMD [ "node", "./build/index.js" ]

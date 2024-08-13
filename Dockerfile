@@ -33,11 +33,13 @@ VOLUME /data
 
 # Generate Prisma Client
 COPY --link prisma .
-ENV DATABASE_URL="file:./sqlite4.db"
+ENV DATABASE_URL="file:/data/sqlite.db"
 #RUN npx prisma generate
 
 # Build application
 RUN npm run build
+# add shortcut for connecting to database CLI
+RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 RUN npx prisma db push 
 
 # Remove development dependencies
@@ -50,10 +52,6 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y openssl && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-
-# add shortcut for connecting to database CLI
-RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 
 # Copy built application
 COPY --from=build /app/build /app/build

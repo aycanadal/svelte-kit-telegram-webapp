@@ -33,7 +33,7 @@ RUN npx prisma generate
 COPY --link . .
 
 # Build application
-RUN npm run build
+RUN CI= npm run build
 
 # Remove development dependencies
 RUN npm prune --omit=dev

@@ -26,7 +26,7 @@ RUN npm ci --include=dev
 
 # Generate Prisma Client
 COPY --link prisma .
-ENV DATABASE_URL="file:///data/sqlite.db"
+ENV DATABASE_URL="file:/data/sqlite.db"
 RUN npx prisma generate
 RUN npx prisma db push 
 

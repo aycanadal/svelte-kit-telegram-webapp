@@ -43,6 +43,7 @@
 		"cookie": "^0.6.0",
 		"devalue": "^5.0.0",
 		"jsonwebtoken": "^9.0.2",
-		"prisma": "^5.18.0"
+		"prisma": "^5.18.0",
+		"set-cookie-parser": "^2.7.0"
 	}
 }

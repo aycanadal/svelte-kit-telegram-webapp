@@ -53,7 +53,7 @@ COPY --from=build /app/docker-entrypoint.js /app
 COPY --from=build /app/prisma /app/prisma
 
 ENV DATABASE_URL="file:/data/sqlite.db"
-RUN npx prisma db push 
+#RUN npx prisma db push 
 
 # Entrypoint prepares the database.
 #ENTRYPOINT [ "/app/docker-entrypoint.js" ]
@@ -61,3 +61,4 @@ RUN npx prisma db push
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD [ "node", "./build/index.js" ]
+CMD ["./start.sh"]

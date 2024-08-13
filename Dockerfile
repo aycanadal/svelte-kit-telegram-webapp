@@ -54,6 +54,8 @@ RUN apt-get update -qq && \
 
 
 # Copy built application
+COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
+
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app

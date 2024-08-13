@@ -33,7 +33,7 @@ VOLUME /data
 
 # Generate Prisma Client
 COPY --link prisma .
-ENV DATABASE_URL="file:///data/sqlite.db"
+ENV DATABASE_URL="file:/data/sqlite.db"
 #RUN npx prisma generate
 
 # Build application
@@ -54,8 +54,6 @@ RUN apt-get update -qq && \
 
 
 # Copy built application
-COPY --from=build /app/node_modules/.prisma /app/node_modules/.prisma
-
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app

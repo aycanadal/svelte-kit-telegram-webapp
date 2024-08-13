@@ -27,13 +27,6 @@ RUN npm ci --include=dev
 # Copy application code
 COPY --link . .
 
-# Build application
-RUN npm run build
-
-# Remove development dependencies
-RUN npm prune --omit=dev
-
-
 # Final stage for app image
 FROM base
 
@@ -50,7 +43,13 @@ VOLUME /data
 COPY --link prisma .
 ENV DATABASE_URL="file:///data/sqlite.db"
 RUN npx prisma generate
-RUN npx prisma db push 
+RUN npx prisma db push
+
+# Build application
+RUN npm run build
+
+# Remove development dependencies
+RUN npm prune --omit=dev
 
 # Copy built application
 COPY --from=build /app/build /app/build

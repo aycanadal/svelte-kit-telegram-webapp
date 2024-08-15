@@ -18,6 +18,8 @@
 	<p class="red">{form?.error ?? ''}</p>
 </form>
 
+<a href="/profile">Go to profile</a>
+
 {#if form?.success}
 
 	<Modal showModal buttonText="Cancel">

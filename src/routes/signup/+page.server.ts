@@ -43,6 +43,7 @@ export const actions = {
             });
 
             event.cookies.delete('AuthorizationToken', cookieOptions);
+            event.locals.user = undefined;
            
             return { token };
 

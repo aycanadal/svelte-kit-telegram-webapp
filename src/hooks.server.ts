@@ -10,29 +10,37 @@ const public_paths = [
 ];
 
 function isPathAllowed(path: string) {
+
     return public_paths.some(allowedPath =>
         path === allowedPath || path.startsWith(allowedPath + '/')
     );
+
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
 
     const url = new URL(event.request.url);
+
     if (isPathAllowed(url.pathname))
         return await resolve(event);
 
     const bearerAndToken = event.cookies.get("AuthorizationToken")
 
     if (!bearerAndToken) {
+
         redirect(307, "/login")
         return await resolve(event);
+
     }
 
     if (bearerAndToken) {
+
         const token = bearerAndToken.split(" ")[1];
 
         try {
+
             const jwtUser = jwt.verify(token, env.JWT_SECRET);
+
             if (typeof jwtUser === "string") {
                 throw new Error("Something went wrong");
             }
@@ -43,10 +51,9 @@ export const handle: Handle = async ({ event, resolve }) => {
                 },
             });
 
-            if (!user) {
+            if (!user) 
                 throw new Error("User not found");
-            }
-
+            
             const sessionUser = {
                 id: user.id,
                 telegramId: user.telegramId,
@@ -56,6 +63,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             event.locals.user = sessionUser;
 
         } catch (exception) {
+
             if (exception instanceof jwt.TokenExpiredError)
                 redirect(303, "/login")
             else
@@ -66,6 +74,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     return await resolve(event);
+    
 };
 
 

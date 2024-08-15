@@ -74,19 +74,15 @@ export const actions = {
 
         }
 
-        if (typeof jwtUser === "string") {
+        if (typeof jwtUser === "string")
             throw new Error("Something went wrong");
-        }
 
         event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, cookieOptions);
 
         if (token)
             return { newToken: token }
-        else {
+        else
             redirect(303, '/profile');
-            return { success: "Token is valid." }
-        }
-
 
     }
 

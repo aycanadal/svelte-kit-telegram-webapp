@@ -32,7 +32,7 @@ export const actions = {
             };
         
             const token = jwt.sign(jwtUser, "some super classified secret", {
-                expiresIn: '3s'
+                expiresIn: '1d'
             });
 
              const user = await db.user.create({

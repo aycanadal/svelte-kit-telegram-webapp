@@ -23,6 +23,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     const bearerAndToken = event.cookies.get("AuthorizationToken")
 
+    console.log("token: ", bearerAndToken)
+
     if (!bearerAndToken) {
         redirect(307, "/login")
         return await resolve(event);

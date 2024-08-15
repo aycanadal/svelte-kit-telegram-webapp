@@ -62,7 +62,7 @@ export const actions = {
                 };
 
                 //token = jwt.sign(jwtUser, env.JWT_SECRET, {
-                    token = jwt.sign(jwtUser,"some secret", {
+                token = jwt.sign(jwtUser, "some secret", {
                     expiresIn: '30m'
                 });
             }
@@ -82,9 +82,9 @@ export const actions = {
 
         event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, cookieOptions);
 
-        if (token) 
-            return { newToken: token } 
-        else{
+        if (token)
+            return { newToken: token }
+        else {
             redirect(303, '/profile');
             return { success: "Token is valid." }
         }

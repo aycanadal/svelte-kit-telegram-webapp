@@ -23,3 +23,10 @@
 		<p id="token">{form?.token}</p>
 	</Modal>
 {/if}
+
+<style>
+	p#token{
+		padding: 10px;
+		margin: 10px;
+	}
+</style>

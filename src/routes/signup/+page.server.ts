@@ -40,6 +40,14 @@ export const actions = {
                     token
                 }
             });
+
+            event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, {
+                httpOnly: true,
+                path: '/',
+                secure: true,
+                sameSite: 'none',
+                maxAge: 60 * 60 * 24 // 1 day
+            });
            
             return { token };
 

@@ -22,7 +22,7 @@ test('can sign up and log in and view profile', async ({ page }) => {
 		.filter({ hasText: "Please copy and save this token" })
 		.isHidden()
 
-	const telegramId = "4357", password = "p"
+	const telegramId = "4358", password = "p"
 
 	await page.getByLabel("Telegram Id:").fill(telegramId);
 	await page.getByLabel("Password:").fill(password);

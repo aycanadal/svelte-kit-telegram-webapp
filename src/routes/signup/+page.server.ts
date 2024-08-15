@@ -30,9 +30,10 @@ export const actions = {
                 telegramId: dto.telegramId               
             };
         
+            console.log("env secret: ", env.JWT_SECRET)
             //const token = jwt.sign(jwtUser, env.JWT_SECRET, {
                 const token = jwt.sign(jwtUser, "some secret", {
-                expiresIn: '1d'
+                expiresIn: '30m'
             });
 
              const user = await db.user.create({

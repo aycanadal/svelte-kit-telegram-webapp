@@ -52,8 +52,7 @@ export const actions = {
         let token;
 
         try {
-            //jwtUser = jwt.verify(user.token, env.JWT_SECRET);
-            const jwtUser = jwt.verify(user.token, "some secret");
+            jwtUser = jwt.verify(user.token, env.JWT_SECRET);
         } catch (exception) {
 
             if (exception instanceof jwt.TokenExpiredError) {
@@ -61,8 +60,7 @@ export const actions = {
                     telegramId: user.telegramId
                 };
 
-                //token = jwt.sign(jwtUser, env.JWT_SECRET, {
-                token = jwt.sign(jwtUser, "some secret", {
+                token = jwt.sign(jwtUser, env.JWT_SECRET, {
                     expiresIn: '30m'
                 });
             }

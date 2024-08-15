@@ -31,8 +31,7 @@ export const actions = {
             };
         
             console.log("env secret: ", env.JWT_SECRET)
-            //const token = jwt.sign(jwtUser, env.JWT_SECRET, {
-                const token = jwt.sign(jwtUser, "some secret", {
+            const token = jwt.sign(jwtUser, env.JWT_SECRET, {
                 expiresIn: '30m'
             });
 

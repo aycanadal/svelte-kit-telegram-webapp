@@ -30,7 +30,6 @@ export const actions = {
                 telegramId: dto.telegramId               
             };
         
-            console.log("env secret: ", env.JWT_SECRET)
             const token = jwt.sign(jwtUser, env.JWT_SECRET, {
                 expiresIn: '30m'
             });

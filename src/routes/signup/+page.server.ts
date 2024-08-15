@@ -41,13 +41,7 @@ export const actions = {
                 }
             });
 
-            event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, {
-                httpOnly: true,
-                path: '/',
-                secure: true,
-                sameSite: 'none',
-                maxAge: 60 * 60 * 24 // 1 day
-            });
+            event.cookies.delete('AuthorizationToken', { path: '/' });
            
             return { token };
 

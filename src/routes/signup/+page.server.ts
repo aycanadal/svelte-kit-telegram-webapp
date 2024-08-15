@@ -3,6 +3,7 @@ import { db } from '$lib';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { env } from '$env/dynamic/private';
+import { cookieOptions } from '$lib/constants';
 
 export const actions = {
     default: async (event) => {
@@ -41,7 +42,7 @@ export const actions = {
                 }
             });
 
-            event.cookies.delete('AuthorizationToken', { path: '/' });
+            event.cookies.delete('AuthorizationToken', cookieOptions);
            
             return { token };
 

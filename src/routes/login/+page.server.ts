@@ -6,6 +6,7 @@ import { Credentials } from "./credentials";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { env } from "$env/dynamic/private";
+import { cookieOptions } from "$lib/constants";
 
 export const actions = {
 
@@ -77,13 +78,7 @@ export const actions = {
             throw new Error("Something went wrong");
         }
 
-        event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, {
-            httpOnly: true,
-            path: '/',
-            secure: true,
-            sameSite: 'none',
-            maxAge: 60 * 60 * 24 // 1 day
-        });
+        event.cookies.set('AuthorizationToken', `Bearer ${user.token}`, cookieOptions);
 
         if (token) 
             return { newToken: token } 

@@ -1,6 +1,5 @@
 import { redirect, type Handle } from "@sveltejs/kit";
 import jwt from 'jsonwebtoken';
-import { env } from "$env/dynamic/private";
 import { db } from "$lib";
 
 const public_paths = [

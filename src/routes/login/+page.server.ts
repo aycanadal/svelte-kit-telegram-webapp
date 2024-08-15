@@ -82,7 +82,7 @@ export const actions = {
             httpOnly: true,
             path: '/',
             secure: true,
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: 60 * 60 * 24 // 1 day
         });
 

@@ -30,7 +30,7 @@
 			<input bind:value={telegramId} id="telegramId" type="text" name="telegramId" hidden />
 			<label for="token">Token:</label>
 			<div><input id="token" type="text" name="token" /></div>
-			<div><button>Log in</button></div>
+			<div><button>Submit token</button></div>
 		</form>
 
 	</Modal>

@@ -6,11 +6,9 @@
 
 <div class="card">
 
-	{data.user?.telegramId}
-	<br />
+	<p>{data.user?.telegramId}</p>
 	*********
-	<br />
-	Created: {data.user?.createdAt}
+	<p>Created: {data.user?.createdAt.toLocaleDateString()}</p>
 	
 </div>
 

@@ -1,8 +1,8 @@
 /** @type {import('./$types').Actions} */
-import { env } from '$env/dynamic/private';
 import { db } from '$lib';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { env } from '$env/dynamic/private';
 
 export const actions = {
     default: async (event) => {
@@ -11,8 +11,6 @@ export const actions = {
         const dto = Object.fromEntries(formData);
         const body = JSON.stringify(dto)
 
-        console.log("DATABASE_URL: ", env.DATABASE_URL)
-        
         const user = await db.user.findUnique({
             where: {
                 telegramId: dto.telegramId as string
@@ -31,7 +29,7 @@ export const actions = {
                 telegramId: dto.telegramId               
             };
         
-            const token = jwt.sign(jwtUser, "some super classified secret", {
+            const token = jwt.sign(jwtUser, env.JWT_SECRET, {
                 expiresIn: '1d'
             });
 

@@ -4,8 +4,8 @@ import { db } from "$lib";
 import { redirect } from "@sveltejs/kit";
 import { Credentials } from "./credentials";
 import bcrypt from 'bcryptjs';
-import { env } from "$env/dynamic/private";
 import jwt from 'jsonwebtoken';
+import { env } from "$env/dynamic/private";
 
 export const actions = {
 
@@ -51,7 +51,7 @@ export const actions = {
         let token;
 
         try {
-            jwtUser = jwt.verify(user.token, "some super classified secret");
+            jwtUser = jwt.verify(user.token, env.JWT_SECRET);
         } catch (exception) {
 
             if (exception instanceof jwt.TokenExpiredError) {
@@ -59,7 +59,7 @@ export const actions = {
                     telegramId: user.telegramId
                 };
 
-                token = jwt.sign(jwtUser, "some super classified secret", {
+                token = jwt.sign(jwtUser, env.JWT_SECRET, {
                     expiresIn: '30m'
                 });
             }
@@ -70,7 +70,6 @@ export const actions = {
                     token
                 }
             });
-
 
         }
 

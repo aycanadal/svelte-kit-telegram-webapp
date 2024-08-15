@@ -1,6 +1,7 @@
 import { redirect, type Handle } from "@sveltejs/kit";
 import jwt from 'jsonwebtoken';
 import { db } from "$lib";
+import { env } from "$env/dynamic/private";
 
 const public_paths = [
     '/',
@@ -31,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         const token = bearerAndToken.split(" ")[1];
 
         try {
-            const jwtUser = jwt.verify(token, "some super classified secret");
+            const jwtUser = jwt.verify(token, env.JWT_SECRET);
             if (typeof jwtUser === "string") {
                 throw new Error("Something went wrong");
             }
